@@ -528,7 +528,7 @@ body {
 }
 
 /* Add a subtle floating animation to elements inside the book for more depth */
-.profile-page img, .services-content, .skills-content .content span {
+.profile-page img,.skills-content .content span {
     animation: float 6s ease-in-out infinite;
     animation-delay: calc(var(--i, 0) * 0.2s);
 }

@@ -105,7 +105,6 @@ pages.forEach((_,index) => {
     })
 
 
-    // Contact form submission (modified to include basic escaping)
 const contactForm = document.querySelector('.contact-box form');
 contactForm.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent default form submission
@@ -114,7 +113,7 @@ contactForm.addEventListener('submit', function(event) {
     const email = document.querySelector('.contact-box .field[placeholder="Email Address"]').value;
     const message = document.querySelector('.contact-box .field[placeholder="Your Message"]').value;
 
-    // Basic HTML escaping function
+    // Basic HTML escaping
     function escapeHTML(str) {
         let div = document.createElement('div');
         div.textContent = str;
@@ -125,16 +124,33 @@ contactForm.addEventListener('submit', function(event) {
     const escapedEmail = escapeHTML(email);
     const escapedMessage = escapeHTML(message);
 
-    // *** Instead of just logging, you would typically send this data
-    // *** to a server using fetch() or XMLHttpRequest.
-    // *** The server MUST perform thorough sanitization and validation!
-    console.log("Full Name:", escapedFullName);
-    console.log("Email:", escapedEmail);
-    console.log("Message:", escapedMessage);
-
-    alert("Form submitted! (Data escaped for safety. Remember to sanitize on the server!)");
-    contactForm.reset(); // Clear the form
-})  
+    // Send data to FormSubmit
+    fetch("https://formsubmit.co/rudrarh1806@gmail.com", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+            name: escapedFullName,
+            email: escapedEmail,
+            message: escapedMessage,
+            _captcha: "false"
+            // _next: "https://your-site.vercel.app/thankyou.html"
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Message sent successfully!");
+            contactForm.reset();
+        } else {
+            alert("Failed to send message. Please try again later.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again.");
+    });
+});
 
 const initPageTurning = () => {
   const coverRight = document.querySelector('.cover.cover-right');

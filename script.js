@@ -125,7 +125,7 @@ contactForm.addEventListener('submit', function(event) {
     const escapedMessage = escapeHTML(message);
 
     // Send data to FormSubmit
-    fetch("https://formsubmit.co/ 4b140d3a2b4d63467921564bd438867a", {
+    fetch("https://formsubmit.co/4b140d3a2b4d63467921564bd438867a", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
